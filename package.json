@@ -1,0 +1,15 @@
+{
+  "name": "social-poster",
+  "version": "1.0.0",
+  "description": "Tool tự động đăng bài lên các nền tảng mạng xã hội bằng Puppeteer",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "profullstack",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^24.15.0"
+  }
+}

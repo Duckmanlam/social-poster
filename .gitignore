@@ -1,0 +1,5 @@
+node_modules
+config/content/*.png
+config/content/*.jpg
+config/entities/*.json
+.env
