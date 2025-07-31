@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Run Automation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🧠 Run Puppeteer Automation</h1>
+  <button onclick="runAutomation('entityTest.json', 'contentTest.json')">Run Quora</button>
+  <div id="status"></div>
+
+  <script>
+    async function runAutomation(entityFile, contentFile) {
+      const statusEl = document.getElementById('status');
+      statusEl.textContent = '⏳ Running...';
+
+      const res = await fetch('/quora', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          entityPath: `./config/entities/${entityFile}`,
+          contentPath: `./config/content/${contentFile}`
+        })
+      });
+
+      const text = await res.text();
+      statusEl.textContent = text;
+    }
+  </script>
+</body>
+</html>

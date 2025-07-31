@@ -1,0 +1,12 @@
+{
+  "quora": [
+    {
+      "platform": "quora",
+      "username": "vcd254442@gmail.com",
+      "password": "Abc12345@",
+      "title": "Test Entity",
+      "content": "This is a test entity for automation.",
+      "img_path": "automation/assets/img/post.png"
+    }
+  ]
+}
