@@ -1,33 +1,25 @@
-import fs from 'fs';
+// server.js
+import express from 'express';
+import { quora } from './scripts/quora.js';
 import path from 'path';
-import { launchBrowser } from './utils/puppeteerSetup.js';
-import { XPlatform } from './automation/platforms/x-platform.js';
 
-const platforms = {
-  x: XPlatform
-};
+const app = express();
+const PORT = 3000;
 
-const run = async (entityPath, contentPath) => {
-  const browser = await launchBrowser();
-  const content = JSON.parse(fs.readFileSync(contentPath));
-  const entity = JSON.parse(fs.readFileSync(entityPath));
+app.use(express.json());
+app.use(express.static('public'));
 
-  for (const account of entity.accounts) {
-    const page = await browser.newPage();
-    const PlatformClass = platforms[account.platform];
-    if (!PlatformClass) continue;
+app.post('/quora', async (req, res) => {
+  const { entityPath, contentPath } = req.body;
 
-    const handler = new PlatformClass(page, account);
-    try {
-      await handler.login();
-      await handler.postContent(content);
-    } catch (err) {
-      console.error(`❌ ${account.platform} | ${account.username}:`, err.message);
-    } finally {
-      await page.close();
-    }
+  try {
+    await quora(entityPath, contentPath);
+    res.status(200).send('✅ Run completed successfully!');
+  } catch (err) {
+    res.status(500).send(`❌ Run failed: ${err.message}`);
   }
-  await browser.close();
-};
+});
 
-run('./config/entities/entityTest.json', './config/content/contentTest.json');
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+});

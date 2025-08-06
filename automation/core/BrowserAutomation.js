@@ -4,11 +4,8 @@ export class BrowserAutomation {
     this.credentials = credentials;
   }
 
-  async login() {
-    throw new Error('login() not implemented');
+  async handleLoginAndPost() {
+    throw new Error('handleLoginAndPost() not implemented');
   }
 
-  async postContent(content) {
-    throw new Error('postContent() not implemented');
-  }
 }
